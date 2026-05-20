@@ -1,40 +1,82 @@
-* {
-  margin: 0;
-  padding: 0;
+/* FIX: Simplified CSS — only styles used by the app are included */
+
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #ffffff;
+  --border: #e5e4e7;
+  --accent: #aa3bff;
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --accent: #c084fc;
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px,
+      rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
 body {
-  background: linear-gradient(to right, #141e30, #243b55);
+  margin: 0;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 24px;
 }
 
 .card {
-  background-color: white;
-  width: 350px;
-  padding: 30px;
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
-
+  box-shadow: var(--shadow);
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
-.card h1 {
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin: 0 0 8px;
   text-align: center;
-  color: #243b55;
 }
 
 .label {
-  font-weight: bold;
+  font-size: 15px;
+  color: var(--text);
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
 }
 
 .checkbox-group {
@@ -43,36 +85,59 @@ body {
   gap: 10px;
 }
 
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.checkbox-group input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
 .generate-btn,
 .copy-btn {
+  width: 100%;
   padding: 12px;
   border: none;
-  border-radius: 6px;
-  color: white;
-  font-size: 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.3s;
+  transition: opacity 0.2s;
+}
+
+.generate-btn:hover,
+.copy-btn:hover {
+  opacity: 0.85;
 }
 
 .generate-btn {
-  background-color: #243b55;
-}
-
-.generate-btn:hover {
-  background-color: #1b2d42;
+  background: var(--accent);
+  color: #ffffff;
 }
 
 .copy-btn {
-  background-color: #28a745;
-}
-
-.copy-btn:hover {
-  background-color: #218838;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-h);
 }
 
 .password-box {
+  width: 100%;
   padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: ui-monospace, Consolas, monospace;
+  color: var(--text-h);
+  background: var(--bg);
+  text-align: center;
+  letter-spacing: 0.05em;
 }
