@@ -1,35 +1,48 @@
+/*  CSS Variables 
+   Defined on :root so they're accessible anywhere in the stylesheet.
+   Variables prefixed with -- are custom properties — use var(--name) to apply them.
+   Note: several variables here (--code-bg, --accent-bg, etc.) are from the original
+   template and are unused by this app. They are kept here but could be removed. */
 :root {
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
   --border: #e5e4e7;
-  --code-bg: #f4f3ec;
+  --code-bg: #f4f3ec;          /* unused — no <code> elements in this app */
   --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  --accent-bg: rgba(170, 59, 255, 0.1);    /* unused */
+  --accent-border: rgba(170, 59, 255, 0.5); /* unused */
+  --social-bg: rgba(244, 243, 236, 0.5);   /* unused */
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
+  /* Font stacks — browser tries each left to right, uses first available */
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
+  /* Shorthand: font-size/line-height font-family */
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
-  color-scheme: light dark;
+  color-scheme: light dark; /* tells the browser this page supports both modes */
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility; /* improves kerning and ligatures */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  /* Note: media queries nested inside selectors require a CSS preprocessor
+     or a browser that supports native CSS nesting (not universally supported).
+     Move these to top-level @media blocks if you see unexpected behaviour. */
   @media (max-width: 1024px) {
     font-size: 16px;
   }
 }
 
+/*  Dark Mode 
+   Overrides variables when the user's OS is in dark mode.
+   Everything using var() updates automatically — no JS needed. */
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
@@ -45,27 +58,34 @@
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
   }
 
+  /* Unused — there is no #social element in this app */
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
 }
 
+/*  Body Reset  */
 body {
   margin: 0;
 }
 
+/*  App Root 
+   #root is the div React mounts into (created by Vite's index.html).
+   100svh uses small viewport height — more reliable than vh on mobile
+   where browser chrome (address bar) can affect the calculation. */
 #root {
   width: 1126px;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 0 auto; /* centres the root horizontally */
   text-align: center;
-  border-inline: 1px solid var(--border);
+  border-inline: 1px solid var(--border); /* left and right borders only */
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 
+/*  Headings  */
 h1,
 h2 {
   font-family: var(--heading);
@@ -75,13 +95,14 @@ h2 {
 
 h1 {
   font-size: 56px;
-  letter-spacing: -1.68px;
+  letter-spacing: -1.68px; /* tight tracking at large sizes improves readability */
   margin: 32px 0;
-  @media (max-width: 1024px) {
+  @media (max-width: 1024px) { /* see nesting note above */
     font-size: 36px;
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
@@ -91,10 +112,13 @@ h2 {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }
 
+/*  Code / Counter 
+   Unused in this app — no <code> or .counter elements exist in App.jsx */
 code,
 .counter {
   font-family: var(--mono);

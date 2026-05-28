@@ -1,16 +1,20 @@
-/* FIX: Simplified CSS — only styles used by the app are included */
-
+/*  CSS Variables 
+   Defined on :root so they're available everywhere in the stylesheet.
+   Changing a variable here updates every element that references it. */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #ffffff;
-  --border: #e5e4e7;
-  --accent: #aa3bff;
-  --shadow:
+  --text: #6b6375;       /* body text */
+  --text-h: #08060d;     /* headings and high-contrast text */
+  --bg: #ffffff;         /* page and card background */
+  --border: #e5e4e7;     /* borders and outlines */
+  --accent: #aa3bff;     /* buttons, checkboxes, slider thumb */
+  --shadow:              /* card drop shadow — two layers for depth */
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 }
 
+/*  Dark Mode 
+   Detects the user's OS colour scheme automatically
+   Only the variable values change, everything that uses var() updates for free. */
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
@@ -24,29 +28,37 @@
   }
 }
 
+/*  Box Sizing Reset 
+   By default, padding and border are added on top of a declared width. */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/*  Base Body Styles  */
 body {
   margin: 0;
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif; /* system font stack */
   font-size: 16px;
   color: var(--text);
   background: var(--bg);
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased; /* smoother font rendering on Mac/Chrome */
 }
 
+/*  Layout 
+   Centres the card both vertically and horizontally on the page.
+   min-height rather than height so the page can grow if content overflows. */
 .container {
-  min-height: 100vh;
+  min-height: 100vh; /* 100% of the visible viewport height */
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center;    /* vertical centre */
+  justify-content: center; /* horizontal centre */
   padding: 24px;
 }
 
+/*  Card 
+   The white/dark box that wraps all the controls. */
 .card {
   background: var(--bg);
   border: 1px solid var(--border);
@@ -54,12 +66,13 @@ body {
   box-shadow: var(--shadow);
   padding: 40px;
   width: 100%;
-  max-width: 480px;
+  max-width: 480px; /* stops the card becoming too wide on large screens */
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 16px; /* uniform space between each child — no individual margins needed */
 }
 
+/*  Heading  */
 h1 {
   font-size: 28px;
   font-weight: 600;
@@ -68,6 +81,7 @@ h1 {
   text-align: center;
 }
 
+/*  Length Label  */
 .label {
   font-size: 15px;
   color: var(--text);
@@ -79,12 +93,15 @@ input[type="range"] {
   cursor: pointer;
 }
 
+/*  Checkbox Group 
+   Stacks the two checkboxes vertically with enough spacing. */
 .checkbox-group {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
+/* Lays out each checkbox and its label text side by side */
 .checkbox-group label {
   display: flex;
   align-items: center;
@@ -94,6 +111,7 @@ input[type="range"] {
   color: var(--text);
 }
 
+/* Tints the checkbox tick colour to match the accent */
 .checkbox-group input[type="checkbox"] {
   accent-color: var(--accent);
   width: 16px;
@@ -101,6 +119,8 @@ input[type="range"] {
   cursor: pointer;
 }
 
+/*  Buttons 
+   Shared styles applied to both buttons at once. */
 .generate-btn,
 .copy-btn {
   width: 100%;
@@ -110,32 +130,37 @@ input[type="range"] {
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s; /* animates the hover fade over 0.2 seconds */
 }
 
 .generate-btn:hover,
 .copy-btn:hover {
-  opacity: 0.85;
+  opacity: 0.85; /* subtle fade on hover — same effect for both buttons */
 }
 
+/* Primary action button — filled with accent colour */
 .generate-btn {
   background: var(--accent);
   color: #ffffff;
 }
 
+/* Secondary action button — outlined, no fill */
 .copy-btn {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text-h);
 }
 
+/*  Password Display 
+   Monospace font  — every character takes the same width, so similar characters (1, l, I) are distinguishable.
+   letter-spacing adds a little extra breathing room between characters. */
 .password-box {
   width: 100%;
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 15px;
-  font-family: ui-monospace, Consolas, monospace;
+  font-family: ui-monospace, Consolas, monospace; /* system mono → Windows mono → generic fallback */
   color: var(--text-h);
   background: var(--bg);
   text-align: center;
